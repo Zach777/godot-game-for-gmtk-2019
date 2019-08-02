@@ -43,6 +43,12 @@ func clear() -> void :
 	players_finished = 0
 
 
+func start_round() -> void :
+	#Tell the player to take their turn.
+	assert player_units.size() == 0
+	emit_signal( "player_begin_turn" )
+
+
 func enemy_unit_finished() -> void :
 	enemies_finished += 1
 	if enemies_finished == enemy_units.size() :
