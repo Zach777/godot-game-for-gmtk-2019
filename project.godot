@@ -23,6 +23,7 @@ config/icon="res://icon.png"
 
 Con="*res://addons/godotput/GodotInputConfigHandler.tscn"
 TurnTaker="*res://globals/turn/TurnTaker.tscn"
+MapHandler="*res://globals/map/MapHandler.tscn"
 
 [rendering]
 
