@@ -51,4 +51,4 @@ func take_damage(damage : int):
 		health -= damage
 	if health <= 0:
 		$"/root/TurnTaker".remove_player_unit(self)
-		get_parent().remove_child(self)
+		self.queue_free()
