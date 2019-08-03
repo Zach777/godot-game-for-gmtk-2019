@@ -36,24 +36,28 @@ func check_map( map : TileMap ) -> void :
 
 func get_tile( tile : Vector2 ) -> int :
 	if clamp(tile.x, 0, array_size.x-1) == tile.x and round(tile.x) == tile.x and clamp(tile.y, 0, array_size.y-1) == tile.y and round(tile.y) == tile.y:
+		var gotten = tiles[ tile.x ][ tile.y ]
+		var hello = "This is so you can see what you got"
 		return tiles[ tile.x ][ tile.y ]
 	else: return -1
 
 
-func move_unit( from_tiles : Vector2, to_tile : Vector2 ) -> bool :
+func move_unit( from_tiles : Vector2, to_tile : Vector2 ) -> Vector2 :
 	if get_tile(to_tile) != GROUND :
-		return false
+		return from_tiles
 	if not (tile_in_map(from_tiles) and tile_in_map(to_tile)):
-		return false
+		return from_tiles
 	var swap_value : int = tiles[ from_tiles.x ][ from_tiles.y ]
 	tiles[ from_tiles.x ][ from_tiles.y ] = 0
 	tiles[ to_tile.x ][ to_tile.y ] = swap_value
-	return true
+	return to_tile
 
 
 func set_tile( tile : Vector2, value : int ) -> void :
 	if clamp(tile.x, 0, array_size.x-1) == tile.x and round(tile.x) == tile.x and clamp(tile.y, 0, array_size.y-1) == tile.y and round(tile.y) == tile.y:
 		tiles[ tile.x ][ tile.y ] = value
+	else:
+		assert true == false
 
 func tile_in_map(tile : Vector2) -> bool:
 	if clamp(tile.x, 0, array_size.x-1) == tile.x and round(tile.x) == tile.x and clamp(tile.y, 0, array_size.y-1) == tile.y and round(tile.y) == tile.y:
