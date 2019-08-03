@@ -9,7 +9,8 @@ func _ready():
 	var firstPlayer = preload("res://ants/player/Player.tscn").instance()
 	firstPlayer.positionInArray = Vector2(3,3)
 	$"/root/TurnTaker".add_player_unit(firstPlayer)
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+	
+	#Add one enemy.
+	var enemy = preload( "res://ants/enemies/Enemy.tscn" ).instance()
+	enemy.positionInArray = Vector2( 8,3 )
+	TurnTaker.add_enemy_unit( enemy )
