@@ -14,6 +14,9 @@ extends CanvasLayer
 signal player_begin_turn
 signal enemy_begin_turn
 
+signal enemy_count_changed
+signal players_count_changed
+
 var player_units : Array = []
 var players_finished : int = 0
 
@@ -25,12 +28,14 @@ func add_player_unit( unit : Object ) -> void :
 	#Add the player unit to the scene.
 	player_units.append( unit )
 	unit.connect( "finished_turn", self, "player_unit_finished" )
+	emit_signal( "players_count_changed", player_units.size() )
 
 
 func add_enemy_unit( unit : Object ) -> void :
 	#Add the enemy unit to the taker.
 	enemy_units.append( unit )
 	unit.connect( "finished_turn", self, "enemy_unit_finished" )
+	emit_signal( "enemy_count_changed", enemy_units.size() )
 
 
 func clear() -> void :
@@ -64,10 +69,12 @@ func player_unit_finished() -> void :
 
 func remove_enemy_unit( unit : Object ) -> void :
 	enemy_units.remove( enemy_units.find( unit ) )
+	emit_signal( "enemy_count_changed", enemy_units.size() )
 
 
 func remove_player_unit( unit : Object ) -> void :
 	player_units.remove( player_units.find( unit ) )
+	emit_signal( "players_count_changed", player_units.size() )
 
 
 
