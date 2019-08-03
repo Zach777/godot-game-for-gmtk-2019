@@ -37,6 +37,7 @@ func add_enemy_unit( unit : Object ) -> void :
 	enemy_units.append( unit )
 	unit.connect( "finished_turn", self, "enemy_unit_finished" )
 	emit_signal( "enemy_count_changed", enemy_units.size() )
+	get_tree().get_nodes_in_group("enemies")[0].add_child(unit)
 
 
 func clear() -> void :
