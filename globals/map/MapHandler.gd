@@ -15,7 +15,7 @@ var tiles : Array = []
 
 var array_size = Vector2(20,20)
 
-var tile_size : int = 32
+var tile_size : float = 9.39*2
 
 
 
@@ -35,11 +35,13 @@ func check_map( map : TileMap ) -> void :
 
 
 func get_tile( tile : Vector2 ) -> int :
-	return tiles[ tile.x ][ tile.y ]
+	if clamp(tile.x, 0, array_size.x-1) == tile.x and round(tile.x) == tile.x and clamp(tile.y, 0, array_size.y-1) == tile.y and round(tile.y) == tile.y:
+		return tiles[ tile.x ][ tile.y ]
+	else: return -1
 
 
 func move_unit( from_tiles : Vector2, to_tile : Vector2 ) -> bool :
-	if tiles[ to_tile.x ][ to_tile.y ] != GROUND :
+	if get_tile(to_tile) != GROUND :
 		return false
 	if not (tile_in_map(from_tiles) and tile_in_map(to_tile)):
 		return false

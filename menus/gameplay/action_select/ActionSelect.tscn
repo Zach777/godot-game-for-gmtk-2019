@@ -109,7 +109,7 @@ text = "Guard"
 align = 1
 valign = 1
 
-[node name="Label" type="Label" parent="z"]
+[node name="UnitCount" type="Label" parent="z"]
 margin_left = 642.0
 margin_top = 1.0
 margin_right = 1025.0

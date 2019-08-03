@@ -17,8 +17,11 @@ func _ready():
 		select.connect("attack_pressed", self, "attack")
 		select.connect("guard_pressed", self, "guard")
 		select.connect("move_pressed", self, "move")
+	connect("finished_turn", $"/root/TurnTaker", "player_unit_finished")
+	position = positionInArray*$"/root/MapHandler".tile_size
 
-
+func process(delta):
+	position = positionInArray*$"/root/MapHandler".tile_size
 
 func attack():
 	if($"/root/MapHandler".get_tile(positionInArray+pointing)==$"/root/MapHandler".ENEMY):
@@ -26,6 +29,8 @@ func attack():
 		for enemy in $Area2D.get_overlapping_areas():
 			if enemy.has_method("take_damage"): enemy.take_damage(damage)
 	guarding = false
+	$AnimationPlayer.play("Attack")
+	yield($AnimationPlayer,"animation_finished")
 	emit_signal("finished_turn")
 
 func guard():
