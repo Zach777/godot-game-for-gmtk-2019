@@ -15,7 +15,7 @@ var tiles : Array = []
 
 var array_size = Vector2(20,20)
 
-var tile_size : float = 9.39*2
+var tile_size : float = 32
 
 
 

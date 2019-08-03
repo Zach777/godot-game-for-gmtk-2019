@@ -7,8 +7,8 @@ signal finished_turn
 signal health_changed
 
 onready var main_sprite : Sprite = get_node("main_sprite")
+onready var checker : Area2D = get_node( "Checker" )
 
-var pointing = Vector2(1,0)
 var positionInArray = Vector2()
 var guarding = false
 
@@ -29,13 +29,10 @@ func process(delta):
 	position = positionInArray*MapHandler.tile_size
 
 func attack():
-	if(MapHandler.get_tile(positionInArray+pointing)==MapHandler.ENEMY):
-		self.position = (positionInArray+pointing)*MapHandler.tile_size
-		for enemy in self.get_overlapping_areas():
+	if(near_enemy()):
+		for enemy in checker.get_overlapping_areas():
 			if enemy.has_method("take_damage"): enemy.take_damage(damage)
 	guarding = false
-	$AnimationPlayer.play("Attack")
-	yield($AnimationPlayer,"animation_finished")
 	emit_signal("finished_turn")
 
 func guard():
@@ -47,6 +44,9 @@ func move( move_by : Vector2 ):
 	position = positionInArray * MapHandler.tile_size
 	guarding = false
 	emit_signal("finished_turn")
+
+func near_enemy() -> bool :
+	return false
 
 func pass_turn() -> void :
 	self.emit_signal( "finished_turn" )

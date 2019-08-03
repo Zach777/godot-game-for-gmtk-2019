@@ -8,6 +8,7 @@ signal health_changed
 const Player = preload("res://ants/Player.tscn")
 
 onready var main_sprite : Sprite = get_node("main_sprite")
+onready var checker : Area2D = get_node( "Checker" )
 
 var positionInArray = Vector2()
 
@@ -33,8 +34,7 @@ func player_near() -> Vector2:
 
 func turn():
 	if player_near() != Vector2( -1,-1 ):
-		self.position = player_near()
-		for player in self.get_overlapping_areas():
+		for player in checker.get_overlapping_areas():
 			if player.has_method("take_damage"): player.take_damage(1)
 	else:
 		var nearest_player = nearest_player()
