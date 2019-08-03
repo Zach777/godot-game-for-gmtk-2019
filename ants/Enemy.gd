@@ -6,6 +6,8 @@ export (int) var health = 1
 signal finished_turn
 signal health_changed
 
+const Player = preload("res://ants/Player.tscn")
+
 func _ready():
 	MapHandler.set_tile( positionInArray, MapHandler.ENEMY )
 	position = positionInArray*$"/root/MapHandler".tile_size
@@ -75,7 +77,7 @@ func take_damage(var dmg : int):
 
 func die():
 	$"/root/MapHandler".set_tile(positionInArray, 1)
-	var newPlayerUnit = load("res://ants/player/Player.tscn").instance() #TODO!!! CHANGE THIS TO PLAYER SCENE
+	var newPlayerUnit = Player.instance()
 	newPlayerUnit.positionInArray = positionInArray
 	$"/root/TurnTaker".remove_enemy_unit(self)
 	newPlayerUnit.position = positionInArray*$"/root/MapHandler".tile_size+Vector2($"/root/MapHandler".tile_size/2, $"/root/MapHandler".tile_size/2)
