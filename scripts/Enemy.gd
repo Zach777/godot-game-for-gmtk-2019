@@ -55,10 +55,10 @@ func turn():
 	emit_signal("finished_turn")
 
 func nearest_player() -> Area2D:
-	var nearest_player = get_tree().get_nodes_in_group("player_unit")[0]
+	var nearest_player : Area2D
 	for player in get_tree().get_nodes_in_group("player_unit"):
-		var distance = (position-player.position).length()
-		if distance <= (position-nearest_player.position): nearest_player = player
+		var distance = (position - player.position).length()
+		if distance <= (position - nearest_player.position): nearest_player = player
 	return nearest_player
 
 func take_damage(var dmg : int):

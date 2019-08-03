@@ -4,7 +4,7 @@ extends Area2D
 # var a = 2
 # var b = "text"
 export (int) var damage = 1
-export (int) var health = 1
+export (int) var health = 2
 var pointing = Vector2(1,0)
 var positionInArray = Vector2()
 var guarding = false
