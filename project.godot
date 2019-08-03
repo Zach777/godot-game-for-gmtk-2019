@@ -22,9 +22,5 @@ config/icon="res://icon.png"
 [autoload]
 
 Con="*res://addons/godotput/GodotInputConfigHandler.tscn"
-TurnTaker="*res://globals/turn/TurnTaker.tscn"
-MapHandler="*res://globals/map/MapHandler.tscn"
-
-[rendering]
-
-environment/default_environment="res://default_env.tres"
+MapHandler="*res://globals/map/MapHandler.gd"
+TurnTaker="*res://globals/turn/TurnTaker.gd"

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://art/menu/action_select/BackButtonIdle.png" type="Texture" id=1]
 [ext_resource path="res://art/menu/action_select/BackButtonPressed.png" type="Texture" id=2]
+[ext_resource path="res://art/font/DynamicGerry.tres" type="DynamicFont" id=3]
 
-[sub_resource type="GDScript" id=2]
+[sub_resource type="GDScript" id=1]
 script/source = "extends TextureButton
 
 
@@ -14,7 +15,7 @@ func _ready():
 func play() -> void :
 	get_tree().change_scene( \"res://game/Gameplay.tscn\" )"
 
-[sub_resource type="GDScript" id=1]
+[sub_resource type="GDScript" id=2]
 script/source = "extends TextureButton
 
 
@@ -36,7 +37,22 @@ margin_right = 128.0
 margin_bottom = 64.0
 texture_normal = ExtResource( 1 )
 texture_pressed = ExtResource( 2 )
-script = SubResource( 2 )
+script = SubResource( 1 )
+
+[node name="Label" type="Label" parent="VBoxContainer/PlayGame"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -37.5
+margin_top = -15.0
+margin_right = 37.5
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Play"
+align = 1
+valign = 1
 
 [node name="Settings" type="TextureButton" parent="VBoxContainer"]
 margin_top = 68.0
@@ -45,10 +61,40 @@ margin_bottom = 132.0
 texture_normal = ExtResource( 1 )
 texture_pressed = ExtResource( 2 )
 
+[node name="Label" type="Label" parent="VBoxContainer/Settings"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -60.0
+margin_top = -15.0
+margin_right = 60.0
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Settings"
+align = 1
+valign = 1
+
 [node name="Quit" type="TextureButton" parent="VBoxContainer"]
 margin_top = 136.0
 margin_right = 128.0
 margin_bottom = 200.0
 texture_normal = ExtResource( 1 )
 texture_pressed = ExtResource( 2 )
-script = SubResource( 1 )
+script = SubResource( 2 )
+
+[node name="Label" type="Label" parent="VBoxContainer/Quit"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -31.0
+margin_top = -15.0
+margin_right = 31.0
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Quit"
+align = 1
+valign = 1

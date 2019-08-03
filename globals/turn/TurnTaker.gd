@@ -55,7 +55,7 @@ func start_round() -> void :
 
 func enemy_unit_finished() -> void :
 	enemies_finished += 1
-	if enemies_finished == enemy_units.size() :
+	if enemies_finished >= enemy_units.size() :
 		enemies_finished = 0
 		emit_signal( "player_begin_turn" )
 
