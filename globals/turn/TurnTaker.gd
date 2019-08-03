@@ -51,7 +51,6 @@ func clear() -> void :
 
 func start_round() -> void :
 	#Tell the player to take their turn.
-	assert player_units.size() == 0
 	emit_signal( "player_begin_turn" )
 
 

@@ -10,7 +10,7 @@ extends CanvasLayer
 
 
 signal move_pressed
-signal rotate_pressed
+signal produce_pressed
 signal attack_pressed
 signal guard_pressed
 
@@ -26,7 +26,7 @@ func _ready():
 	
 	#Connect button presses to myself.
 	z.get_node( "Move" ).connect( "pressed", self, "move_pressed" )
-	z.get_node( "Produce" ).connect( "pressed", self, "rotate_pressed" )
+	z.get_node( "Produce" ).connect( "pressed", self, "produce_pressed" )
 	z.get_node( "Attack" ).connect( "pressed", self, "attack_pressed" )
 	z.get_node( "Guard" ).connect( "pressed", self, "guard_pressed" )
 
@@ -81,9 +81,9 @@ func plug_in( object_to_connect : Object ) -> void :
 	pass
 
 
-func rotate_pressed() -> void :
+func produce_pressed() -> void :
 	move.hide()
-	emit_signal( "rotate_pressed" )
+	emit_signal( "produce_pressed" )
 
 
 func update_unit_count( new_count : int ) -> void :

@@ -18,6 +18,7 @@ func _ready():
 	#Set my position based on where I am in the map.
 	positionInArray = position / MapHandler.tile_size
 	MapHandler.set_tile( positionInArray, MapHandler.PLAYER )
+	TurnTaker.add_player_unit( self )
 	
 	for select in get_tree().get_nodes_in_group("ActionSelect"):
 		select.connect("attack_pressed", self, "attack")
@@ -33,7 +34,7 @@ func process(delta):
 	position = positionInArray*MapHandler.tile_size
 
 func attack():
-	if(near_enemy()):
+	if( checker.get_overlapping_areas().size() > 0):
 		for enemy in checker.get_overlapping_areas():
 			if enemy.has_method("take_damage"): enemy.take_damage(damage)
 	guarding = false
@@ -48,9 +49,6 @@ func move( move_by : Vector2 ):
 	position = positionInArray * MapHandler.tile_size
 	guarding = false
 	emit_signal("finished_turn")
-
-func near_enemy() -> bool :
-	return false
 
 func pass_turn() -> void :
 	self.emit_signal( "finished_turn" )

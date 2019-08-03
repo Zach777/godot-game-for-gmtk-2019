@@ -16,6 +16,7 @@ func _ready():
 	#Set my position in the array based on position.
 	positionInArray = position / MapHandler.tile_size
 	MapHandler.set_tile( positionInArray, MapHandler.ENEMY )
+	TurnTaker.add_enemy_unit( self )
 	
 	MapHandler.set_tile( positionInArray, MapHandler.ENEMY )
 	position = positionInArray * MapHandler.tile_size
