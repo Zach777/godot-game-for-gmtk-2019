@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ants/Player.gd" type="Script" id=1]
-[ext_resource path="res://art/ants/icon.png" type="Texture" id=2]
+[ext_resource path="res://ants/Ant_sprites.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 9.39, 9.39 )
@@ -12,7 +12,7 @@ extents = Vector2( 23.0653, 24.3973 )
 [sub_resource type="Animation" id=3]
 resource_name = "Attack"
 tracks/0/type = "value"
-tracks/0/path = NodePath("icon:position")
+tracks/0/path = NodePath("main_sprite:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -40,9 +40,11 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 2 )
 
-[node name="icon" type="Sprite" parent="."]
+[node name="main_sprite" type="Sprite" parent="."]
+modulate = Color( 0, 0.0156863, 1, 1 )
 scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 2 )
+hframes = 12
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Attack = SubResource( 3 )

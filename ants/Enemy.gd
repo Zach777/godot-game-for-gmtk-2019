@@ -1,5 +1,4 @@
 extends Area2D
-var positionInArray = Vector2()
 
 export (int) var health = 1
 
@@ -7,6 +6,10 @@ signal finished_turn
 signal health_changed
 
 const Player = preload("res://ants/Player.tscn")
+
+onready var main_sprite : Sprite = get_node("main_sprite")
+
+var positionInArray = Vector2()
 
 func _ready():
 	MapHandler.set_tile( positionInArray, MapHandler.ENEMY )

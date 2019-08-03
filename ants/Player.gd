@@ -2,12 +2,17 @@ extends Area2D
 
 export (int) var damage = 1
 export (int) var health = 2
+
+signal finished_turn
+signal health_changed
+
+onready var main_sprite : Sprite = get_node("main_sprite")
+
 var pointing = Vector2(1,0)
 var positionInArray = Vector2()
 var guarding = false
 
-signal finished_turn
-signal health_changed
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	for select in get_tree().get_nodes_in_group("ActionSelect"):
