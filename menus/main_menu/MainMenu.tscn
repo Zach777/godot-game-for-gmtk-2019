@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://art/menu/action_select/BackButtonIdle.png" type="Texture" id=1]
 [ext_resource path="res://art/menu/action_select/BackButtonPressed.png" type="Texture" id=2]
@@ -26,20 +26,56 @@ func _ready() :
 func quit() -> void :
 	get_tree().quit()"
 
+[sub_resource type="GDScript" id=6]
+script/source = "extends VBoxContainer
+
+var at_size : int = 1
+var sizes : Array = [ Vector2( 1920,1080 ), Vector2( 1280, 720 ), Vector2( 1152, 648 ),
+					Vector2( 1024, 576 ), Vector2( 896, 508 ) ]
+				
+
+func _ready():
+	get_node( \"Bigger\" ).connect( \"pressed\", self, \"bigger\" )
+	get_node( \"Smaller\" ).connect( \"pressed\", self, \"smaller\" )
+	get_node( \"Full\" ).connect( \"pressed\", self, \"fullscreen\" )
+
+
+func bigger() -> void :
+	at_size = max( 0, at_size - 1 )
+	OS.window_size = sizes[ at_size ]
+	OS.window_borderless = false
+
+
+func fullscreen() -> void :
+	OS.window_size = OS.get_screen_size()
+	if OS.window_borderless == true :
+		OS.window_borderless = false
+	else:
+		OS.window_borderless = true
+	OS.window_position = OS.get_screen_position()
+
+
+func smaller() -> void :
+	at_size = min( sizes.size() - 1, at_size + 1 )
+	OS.window_size = sizes[ at_size ]
+	OS.window_borderless = false"
+
 [node name="MainMenu" type="Node"]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+[node name="Main" type="VBoxContainer" parent="."]
+margin_left = 877.634
+margin_top = 416.261
+margin_right = 1005.63
+margin_bottom = 616.261
 
-[node name="PlayGame" type="TextureButton" parent="VBoxContainer"]
+[node name="PlayGame" type="TextureButton" parent="Main"]
 margin_right = 128.0
 margin_bottom = 64.0
 texture_normal = ExtResource( 1 )
 texture_pressed = ExtResource( 2 )
 script = SubResource( 1 )
 
-[node name="Label" type="Label" parent="VBoxContainer/PlayGame"]
+[node name="Label" type="Label" parent="Main/PlayGame"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -54,14 +90,14 @@ text = "Play"
 align = 1
 valign = 1
 
-[node name="Settings" type="TextureButton" parent="VBoxContainer"]
+[node name="Settings" type="TextureButton" parent="Main"]
 margin_top = 68.0
 margin_right = 128.0
 margin_bottom = 132.0
 texture_normal = ExtResource( 1 )
 texture_pressed = ExtResource( 2 )
 
-[node name="Label" type="Label" parent="VBoxContainer/Settings"]
+[node name="Label" type="Label" parent="Main/Settings"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -76,7 +112,7 @@ text = "Settings"
 align = 1
 valign = 1
 
-[node name="Quit" type="TextureButton" parent="VBoxContainer"]
+[node name="Quit" type="TextureButton" parent="Main"]
 margin_top = 136.0
 margin_right = 128.0
 margin_bottom = 200.0
@@ -84,7 +120,7 @@ texture_normal = ExtResource( 1 )
 texture_pressed = ExtResource( 2 )
 script = SubResource( 2 )
 
-[node name="Label" type="Label" parent="VBoxContainer/Quit"]
+[node name="Label" type="Label" parent="Main/Quit"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -96,5 +132,80 @@ margin_bottom = 15.0
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Quit"
+align = 1
+valign = 1
+
+[node name="Aspects" type="VBoxContainer" parent="."]
+margin_left = 1123.7
+margin_top = 408.059
+margin_right = 1251.7
+margin_bottom = 472.059
+script = SubResource( 6 )
+
+[node name="Bigger" type="TextureButton" parent="Aspects"]
+margin_right = 128.0
+margin_bottom = 64.0
+texture_normal = ExtResource( 1 )
+texture_pressed = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="Aspects/Bigger"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -53.672
+margin_top = -15.0
+margin_right = 58.328
+margin_bottom = 48.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "bigger
+"
+align = 1
+valign = 1
+
+[node name="Smaller" type="TextureButton" parent="Aspects"]
+margin_top = 68.0
+margin_right = 128.0
+margin_bottom = 132.0
+texture_normal = ExtResource( 1 )
+texture_pressed = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="Aspects/Smaller"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -60.3994
+margin_top = -18.3454
+margin_right = 60.6006
+margin_bottom = 44.6546
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "smaller
+"
+align = 1
+valign = 1
+
+[node name="Full" type="TextureButton" parent="Aspects"]
+margin_top = 136.0
+margin_right = 128.0
+margin_bottom = 200.0
+texture_normal = ExtResource( 1 )
+texture_pressed = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="Aspects/Full"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -55.1422
+margin_top = -15.0
+margin_right = 56.8578
+margin_bottom = 48.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "full
+"
 align = 1
 valign = 1
