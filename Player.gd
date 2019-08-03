@@ -40,10 +40,9 @@ func guard():
 	guarding = true
 	emit_signal("finished_turn")
 
-func move():
-	if $"/root/MapHandler".move_unit(positionInArray, positionInArray+pointing):
-		positionInArray += pointing
-		position = positionInArray*$"/root/MapHandler".tile_size
+func move( move_by : Vector2 ):
+	positionInArray = $"/root/MapHandler".move_unit(positionInArray, positionInArray+move_by)
+	position = positionInArray * $"/root/MapHandler".tile_size
 	guarding = false
 	emit_signal("finished_turn")
 

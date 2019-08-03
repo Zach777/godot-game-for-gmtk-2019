@@ -47,35 +47,109 @@ custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Move"
 
-[node name="Rotate" type="TextureButton" parent="z"]
-margin_left = 76.0
-margin_top = -18.1766
-margin_right = 204.0
-margin_bottom = 45.8234
+[node name="C" type="CanvasLayer" parent="z/Move"]
+
+[node name="MoveMenu" type="Popup" parent="z/Move/C"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Down" type="TextureButton" parent="z/Move/C/MoveMenu"]
+margin_left = 240.782
+margin_top = 908.828
+margin_right = 368.782
+margin_bottom = 972.828
 rect_scale = Vector2( 2, 2 )
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 3 )
 
-[node name="Label" type="Label" parent="z/Rotate"]
+[node name="Down" type="Label" parent="z/Move/C/MoveMenu/Down"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -54.0
+margin_left = -64.3471
 margin_top = -15.0
-margin_right = 54.0
+margin_right = 64.6529
 margin_bottom = 15.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Rotate"
+text = "Down"
 align = 1
-valign = 1
+
+[node name="Right" type="TextureButton" parent="z/Move/C/MoveMenu"]
+margin_left = 378.178
+margin_top = 783.621
+margin_right = 506.178
+margin_bottom = 847.621
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+
+[node name="Right" type="Label" parent="z/Move/C/MoveMenu/Right"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -64.3471
+margin_top = -15.0
+margin_right = 64.6529
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Right"
+align = 1
+
+[node name="Left" type="TextureButton" parent="z/Move/C/MoveMenu"]
+margin_left = 102.278
+margin_top = 783.621
+margin_right = 230.278
+margin_bottom = 847.621
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+
+[node name="Left" type="Label" parent="z/Move/C/MoveMenu/Left"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -64.3471
+margin_top = -15.0
+margin_right = 64.6529
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Left"
+align = 1
+
+[node name="Up" type="TextureButton" parent="z/Move/C/MoveMenu"]
+margin_left = 242.142
+margin_top = 661.24
+margin_right = 370.142
+margin_bottom = 725.24
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+
+[node name="Up" type="Label" parent="z/Move/C/MoveMenu/Up"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -64.3471
+margin_top = -15.0
+margin_right = 64.6529
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Up"
+align = 1
 
 [node name="Attack" type="TextureButton" parent="z"]
-margin_left = 352.0
-margin_top = -18.1766
-margin_right = 480.0
-margin_bottom = 45.8234
+margin_left = 76.0
+margin_top = -18.177
+margin_right = 204.0
+margin_bottom = 45.823
 rect_scale = Vector2( 2, 2 )
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 3 )
@@ -92,6 +166,30 @@ margin_bottom = 15.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Attack"
+align = 1
+valign = 1
+
+[node name="Rotate" type="TextureButton" parent="z"]
+margin_left = 352.0
+margin_top = -18.177
+margin_right = 480.0
+margin_bottom = 45.823
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="z/Rotate"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -54.0
+margin_top = -15.0
+margin_right = 54.0
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Rotate"
 align = 1
 valign = 1
 

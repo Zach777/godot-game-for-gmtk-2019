@@ -34,7 +34,7 @@ func turn():
 	else:
 		var nearest_player = nearest_player()
 		if nearest_player.position.x == position.x: #same x, move y
-			if nearest_player.y > position.y:
+			if nearest_player.position.y > position.y:
 				positionInArray = $"/root/MapHandler".move_unit(positionInArray, positionInArray + Vector2.DOWN)
 			else:
 				positionInArray = $"/root/MapHandler".move_unit(positionInArray, positionInArray + Vector2.UP)
@@ -45,12 +45,12 @@ func turn():
 				positionInArray = $"/root/MapHandler".move_unit(positionInArray, positionInArray + Vector2.LEFT)
 		else: #move either way
 			if round(rand_range(0,1)) == 0:
-				if nearest_player.y > position.y:
+				if nearest_player.position.y > position.y:
 					positionInArray = $"/root/MapHandler".move_unit(positionInArray, positionInArray + Vector2.DOWN)
 				else:
 					positionInArray = $"/root/MapHandler".move_unit(positionInArray, positionInArray + Vector2.UP)
 			else:
-				if nearest_player.x > position.x:
+				if nearest_player.position.x > position.x:
 					positionInArray = $"/root/MapHandler".move_unit(positionInArray, positionInArray + Vector2.RIGHT)
 				else:
 					positionInArray = $"/root/MapHandler".move_unit(positionInArray, positionInArray + Vector2.LEFT)
