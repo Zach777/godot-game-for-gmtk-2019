@@ -9,23 +9,25 @@ signal health_changed
 func _ready():
 	MapHandler.set_tile( positionInArray, MapHandler.ENEMY )
 	position = positionInArray*$"/root/MapHandler".tile_size
+	
+	TurnTaker.connect( "enemy_begin_turn", self, "turn" )
 
 func tile() -> int:
 	return $"/root/MapHandler".tiles[positionInArray.x][positionInArray.y]
 
 func player_near() -> Vector2:
-	if $"/root/MapHandler".get_tile(positionInArray.x+1, positionInArray.y) == 1:
+	if $"/root/MapHandler".get_tile(Vector2( positionInArray.x+1, positionInArray.y ) ) == 1:
 		return Vector2(positionInArray.x+1, positionInArray.y)
-	elif $"/root/MapHandler".get_tile(positionInArray.x-1, positionInArray.y) == 1:
+	elif $"/root/MapHandler".get_tile(Vector2( positionInArray.x-1, positionInArray.y ) ) == 1:
 		return Vector2(positionInArray.x-1, positionInArray.y)
-	elif $"/root/MapHandler".get_tiler(positionInArray.x, positionInArray.y+1) == 1:
+	elif $"/root/MapHandler".get_tile(Vector2( positionInArray.x, positionInArray.y+1 ) ) == 1:
 		return Vector2(positionInArray.x, positionInArray.y+1)
-	elif $"/root/MapHandler".get_tile(positionInArray.x, positionInArray.y-1) == 1:
+	elif $"/root/MapHandler".get_tile(Vector2( positionInArray.x, positionInArray.y-1) ) == 1:
 		return Vector2(positionInArray.x, positionInArray.y-1)
 	return Vector2(-1, -1)
 
 func turn():
-	if player_near().x >= 0:
+	if player_near() != Vector2( -1,-1 ):
 		$Area2D.position = player_near()
 		for player in $Area2D.get_overlapping_areas():
 			if player.has_method("take_damage"): player.take_damage(1)
@@ -33,32 +35,37 @@ func turn():
 		var nearest_player = nearest_player()
 		if nearest_player.position.x == position.x: #same x, move y
 			if nearest_player.y > position.y:
-				$"/root/MapHandler".move_unit(positionInArray, position + Vector2.DOWN)
+				positionInArray = $"/root/MapHandler".move_unit(positionInArray, positionInArray + Vector2.DOWN)
 			else:
-				$"/root/MapHandler".move_unit(positionInArray, position + Vector2.UP)
+				positionInArray = $"/root/MapHandler".move_unit(positionInArray, positionInArray + Vector2.UP)
 		elif nearest_player.position.y == position.y: #same y, move x
-			if nearest_player.x > position.x:
-				$"/root/MapHandler".move_unit(positionInArray, position + Vector2.RIGHT)
+			if nearest_player.position.x > position.x:
+				positionInArray = $"/root/MapHandler".move_unit(positionInArray, positionInArray + Vector2.RIGHT)
 			else:
-				$"/root/MapHandler".move_unit(positionInArray, position + Vector2.LEFT)
+				positionInArray = $"/root/MapHandler".move_unit(positionInArray, positionInArray + Vector2.LEFT)
 		else: #move either way
 			if round(rand_range(0,1)) == 0:
 				if nearest_player.y > position.y:
-					$"/root/MapHandler".move_unit(positionInArray, position + Vector2.DOWN)
+					positionInArray = $"/root/MapHandler".move_unit(positionInArray, positionInArray + Vector2.DOWN)
 				else:
-					$"/root/MapHandler".move_unit(positionInArray, position + Vector2.UP)
+					positionInArray = $"/root/MapHandler".move_unit(positionInArray, positionInArray + Vector2.UP)
 			else:
 				if nearest_player.x > position.x:
-					$"/root/MapHandler".move_unit(positionInArray, position + Vector2.RIGHT)
+					positionInArray = $"/root/MapHandler".move_unit(positionInArray, positionInArray + Vector2.RIGHT)
 				else:
-					$"/root/MapHandler".move_unit(positionInArray, position + Vector2.LEFT)
+					positionInArray = $"/root/MapHandler".move_unit(positionInArray, positionInArray + Vector2.LEFT)
+		
+		#Move the enemy unit.
+		position = positionInArray*$"/root/MapHandler".tile_size
+	
+	#Finish the turn gracefully.
 	emit_signal("finished_turn")
 
 func nearest_player() -> Area2D:
 	var nearest_player : Area2D
-	for player in get_tree().get_nodes_in_group("player_unit"):
+	for player in get_tree().get_nodes_in_group("player_units"):
 		var distance = (position - player.position).length()
-		if distance <= (position - nearest_player.position): nearest_player = player
+		if distance <= (position - player.position).length(): nearest_player = player
 	return nearest_player
 
 func take_damage(var dmg : int):

@@ -17,8 +17,11 @@ func _ready():
 		select.connect("attack_pressed", self, "attack")
 		select.connect("guard_pressed", self, "guard")
 		select.connect("move_pressed", self, "move")
+		select.connect( "rotate_pressed", self, "pass_turn" )
 	connect("finished_turn", $"/root/TurnTaker", "player_unit_finished")
 	position = positionInArray*$"/root/MapHandler".tile_size
+	
+	MapHandler.set_tile( positionInArray, MapHandler.PLAYER )
 
 func process(delta):
 	position = positionInArray*$"/root/MapHandler".tile_size
@@ -43,6 +46,9 @@ func move():
 		position = positionInArray*$"/root/MapHandler".tile_size
 	guarding = false
 	emit_signal("finished_turn")
+
+func pass_turn() -> void :
+	self.emit_signal( "finished_turn" )
 
 func take_damage(damage : int):
 	if guarding:
