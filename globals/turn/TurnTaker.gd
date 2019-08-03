@@ -14,7 +14,6 @@ extends CanvasLayer
 signal player_begin_turn
 signal enemy_begin_turn
 
-
 var player_units : Array = []
 var players_finished : int = 0
 
@@ -61,3 +60,15 @@ func player_unit_finished() -> void :
 	if players_finished == player_units.size() :
 		players_finished = 0
 		emit_signal( "enemy_begin_turn" )
+
+
+func remove_enemy_unit( unit : Object ) -> void :
+	enemy_units.remove( enemy_units.find( unit ) )
+
+
+func remove_player_unit( unit : Object ) -> void :
+	player_units.remove( player_units.find( unit ) )
+
+
+
+
