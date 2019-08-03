@@ -69,7 +69,7 @@ func die():
 	$"/root/MapHandler".set_tile(positionInArray, 1)
 	var newPlayerUnit = preload("res://ants/enemies/Enemy.tscn").instance() #TODO!!! CHANGE THIS TO PLAYER SCENE
 	newPlayerUnit.positionInArray = positionInArray
-	newPlayerUnit.position = positionInArray*$"/root/MapHandler".cell_size+Vector2($"/root/MapHandler".cell_size/2, $"/root/MapHandler".cell_size/2)
+	newPlayerUnit.position = positionInArray*$"/root/MapHandler".tile_size+Vector2($"/root/MapHandler".tile_size/2, $"/root/MapHandler".tile_size/2)
 	$"/root/TurnTaker".add_player_unit(newPlayerUnit)
 	$"/root/TurnTaker".remove_enemy_unit(self)
 	get_parent().remove_child(self)

@@ -38,14 +38,15 @@ func get_tile( tile : Vector2 ) -> int :
 	return tiles[ tile.x ][ tile.y ]
 
 
-func move_unit( from_tiles : Vector2, to_tile : Vector2 ) -> void :
+func move_unit( from_tiles : Vector2, to_tile : Vector2 ) -> bool :
 	if tiles[ to_tile.x ][ to_tile.y ] != GROUND :
-		return
+		return false
 	if not (tile_in_map(from_tiles) and tile_in_map(to_tile)):
-		return
+		return false
 	var swap_value : int = tiles[ from_tiles.x ][ from_tiles.y ]
 	tiles[ from_tiles.x ][ from_tiles.y ] = 0
 	tiles[ to_tile.x ][ to_tile.y ] = swap_value
+	return true
 
 
 func set_tile( tile : Vector2, value : int ) -> void :
