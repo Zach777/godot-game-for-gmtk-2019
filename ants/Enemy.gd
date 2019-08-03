@@ -1,4 +1,4 @@
-extends Node2D
+extends Area2D
 var positionInArray = Vector2()
 
 export (int) var health = 1
@@ -10,55 +10,55 @@ const Player = preload("res://ants/Player.tscn")
 
 func _ready():
 	MapHandler.set_tile( positionInArray, MapHandler.ENEMY )
-	position = positionInArray*$"/root/MapHandler".tile_size
+	position = positionInArray * MapHandler.tile_size
 	
 	TurnTaker.connect( "enemy_begin_turn", self, "turn" )
 
 func tile() -> int:
-	return $"/root/MapHandler".tiles[positionInArray.x][positionInArray.y]
+	return MapHandler.tiles[positionInArray.x][positionInArray.y]
 
 func player_near() -> Vector2:
-	if $"/root/MapHandler".get_tile(Vector2( positionInArray.x+1, positionInArray.y ) ) == 1:
+	if MapHandler.get_tile(Vector2( positionInArray.x+1, positionInArray.y ) ) == 1:
 		return Vector2(positionInArray.x+1, positionInArray.y)
-	elif $"/root/MapHandler".get_tile(Vector2( positionInArray.x-1, positionInArray.y ) ) == 1:
+	elif MapHandler.get_tile(Vector2( positionInArray.x-1, positionInArray.y ) ) == 1:
 		return Vector2(positionInArray.x-1, positionInArray.y)
-	elif $"/root/MapHandler".get_tile(Vector2( positionInArray.x, positionInArray.y+1 ) ) == 1:
+	elif MapHandler.get_tile(Vector2( positionInArray.x, positionInArray.y+1 ) ) == 1:
 		return Vector2(positionInArray.x, positionInArray.y+1)
-	elif $"/root/MapHandler".get_tile(Vector2( positionInArray.x, positionInArray.y-1) ) == 1:
+	elif MapHandler.get_tile(Vector2( positionInArray.x, positionInArray.y-1) ) == 1:
 		return Vector2(positionInArray.x, positionInArray.y-1)
 	return Vector2(-1, -1)
 
 func turn():
 	if player_near() != Vector2( -1,-1 ):
-		$Area2D.position = player_near()
-		for player in $Area2D.get_overlapping_areas():
+		self.position = player_near()
+		for player in self.get_overlapping_areas():
 			if player.has_method("take_damage"): player.take_damage(1)
 	else:
 		var nearest_player = nearest_player()
 		if nearest_player.position.x == position.x: #same x, move y
 			if nearest_player.position.y > position.y:
-				positionInArray = $"/root/MapHandler".move_unit(positionInArray, positionInArray + Vector2.DOWN)
+				positionInArray = MapHandler.move_unit(positionInArray, positionInArray + Vector2.DOWN)
 			else:
-				positionInArray = $"/root/MapHandler".move_unit(positionInArray, positionInArray + Vector2.UP)
+				positionInArray = MapHandler.move_unit(positionInArray, positionInArray + Vector2.UP)
 		elif nearest_player.position.y == position.y: #same y, move x
 			if nearest_player.position.x > position.x:
-				positionInArray = $"/root/MapHandler".move_unit(positionInArray, positionInArray + Vector2.RIGHT)
+				positionInArray = MapHandler.move_unit(positionInArray, positionInArray + Vector2.RIGHT)
 			else:
-				positionInArray = $"/root/MapHandler".move_unit(positionInArray, positionInArray + Vector2.LEFT)
+				positionInArray = MapHandler.move_unit(positionInArray, positionInArray + Vector2.LEFT)
 		else: #move either way
 			if round(rand_range(0,1)) == 0:
 				if nearest_player.position.y > position.y:
-					positionInArray = $"/root/MapHandler".move_unit(positionInArray, positionInArray + Vector2.DOWN)
+					positionInArray = MapHandler.move_unit(positionInArray, positionInArray + Vector2.DOWN)
 				else:
-					positionInArray = $"/root/MapHandler".move_unit(positionInArray, positionInArray + Vector2.UP)
+					positionInArray = MapHandler.move_unit(positionInArray, positionInArray + Vector2.UP)
 			else:
 				if nearest_player.position.x > position.x:
-					positionInArray = $"/root/MapHandler".move_unit(positionInArray, positionInArray + Vector2.RIGHT)
+					positionInArray = MapHandler.move_unit(positionInArray, positionInArray + Vector2.RIGHT)
 				else:
-					positionInArray = $"/root/MapHandler".move_unit(positionInArray, positionInArray + Vector2.LEFT)
+					positionInArray = MapHandler.move_unit(positionInArray, positionInArray + Vector2.LEFT)
 		
 		#Move the enemy unit.
-		position = positionInArray*$"/root/MapHandler".tile_size
+		position = positionInArray * MapHandler.tile_size
 	
 	#Finish the turn gracefully.
 	emit_signal("finished_turn")
@@ -76,10 +76,10 @@ func take_damage(var dmg : int):
 	if health <= 0: die()
 
 func die():
-	$"/root/MapHandler".set_tile(positionInArray, 1)
+	MapHandler.set_tile(positionInArray, 1)
 	var newPlayerUnit = Player.instance()
 	newPlayerUnit.positionInArray = positionInArray
-	$"/root/TurnTaker".remove_enemy_unit(self)
-	newPlayerUnit.position = positionInArray*$"/root/MapHandler".tile_size+Vector2($"/root/MapHandler".tile_size/2, $"/root/MapHandler".tile_size/2)
-	$"/root/TurnTaker".add_player_unit(newPlayerUnit)
+	TurnTaker.remove_enemy_unit(self)
+	newPlayerUnit.position = positionInArray * MapHandler.tile_size+Vector2(MapHandler.tile_size/2, MapHandler.tile_size/2)
+	TurnTaker.add_player_unit(newPlayerUnit)
 	self.queue_free()
