@@ -58,5 +58,12 @@ func rotate_pressed() -> void :
 
 func update_unit_count( new_count : int ) -> void :
 	unit_count.text = str(new_count)
+	if new_count == 1 :
+		unit_count.text += " ant infected"
+	else:
+		unit_count.text += " ants infected"
+		
+		
+	
 
 

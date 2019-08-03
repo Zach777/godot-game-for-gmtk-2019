@@ -38,8 +38,6 @@ func _ready():
 	get_node( \"Bigger\" ).connect( \"pressed\", self, \"bigger\" )
 	get_node( \"Smaller\" ).connect( \"pressed\", self, \"smaller\" )
 	get_node( \"Full\" ).connect( \"pressed\", self, \"fullscreen\" )
-	
-	fullscreen()
 
 
 func bigger() -> void :

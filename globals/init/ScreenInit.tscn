@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node
+
+
+func _ready() :
+	OS.window_size = OS.get_screen_size()
+	OS.window_position = OS.get_screen_position()
+	OS.window_borderless = true"
+
+[node name="ScreenInit" type="Node"]
+script = SubResource( 1 )

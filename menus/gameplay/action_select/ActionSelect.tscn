@@ -11,8 +11,8 @@ size = 107
 font_data = ExtResource( 5 )
 
 [node name="ActionSelect" type="CanvasLayer" groups=[
-"ActionSelect",
 "Menu",
+"ActionSelect",
 ]]
 script = ExtResource( 1 )
 

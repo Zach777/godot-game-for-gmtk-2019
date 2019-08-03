@@ -24,6 +24,7 @@ config/icon="res://icon.png"
 Con="*res://addons/godotput/GodotInputConfigHandler.tscn"
 MapHandler="*res://globals/map/MapHandler.gd"
 TurnTaker="*res://globals/turn/TurnTaker.gd"
+ScreenInit="*res://globals/init/ScreenInit.tscn"
 
 [display]
 
