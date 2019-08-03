@@ -26,7 +26,7 @@ func _ready():
 	
 	#Connect button presses to myself.
 	z.get_node( "Move" ).connect( "pressed", self, "move_pressed" )
-	z.get_node( "Rotate" ).connect( "pressed", self, "rotate_pressed" )
+	z.get_node( "Produce" ).connect( "pressed", self, "rotate_pressed" )
 	z.get_node( "Attack" ).connect( "pressed", self, "attack_pressed" )
 	z.get_node( "Guard" ).connect( "pressed", self, "guard_pressed" )
 

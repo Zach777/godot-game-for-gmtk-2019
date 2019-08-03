@@ -13,6 +13,10 @@ onready var checker : Area2D = get_node( "Checker" )
 var positionInArray = Vector2()
 
 func _ready():
+	#Set my position in the array based on position.
+	positionInArray = position / MapHandler.tile_size
+	MapHandler.set_tile( positionInArray, MapHandler.ENEMY )
+	
 	MapHandler.set_tile( positionInArray, MapHandler.ENEMY )
 	position = positionInArray * MapHandler.tile_size
 	
@@ -31,6 +35,10 @@ func player_near() -> Vector2:
 	elif MapHandler.get_tile(Vector2( positionInArray.x, positionInArray.y-1) ) == 1:
 		return Vector2(positionInArray.x, positionInArray.y-1)
 	return Vector2(-1, -1)
+
+func set_map_location( location_in_map : Vector2 ) -> void :
+	positionInArray = location_in_map
+	position = positionInArray * MapHandler.tile_size
 
 func turn():
 	if player_near() != Vector2( -1,-1 ):

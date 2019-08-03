@@ -15,6 +15,10 @@ var guarding = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	#Set my position based on where I am in the map.
+	positionInArray = position / MapHandler.tile_size
+	MapHandler.set_tile( positionInArray, MapHandler.PLAYER )
+	
 	for select in get_tree().get_nodes_in_group("ActionSelect"):
 		select.connect("attack_pressed", self, "attack")
 		select.connect("guard_pressed", self, "guard")
@@ -50,6 +54,11 @@ func near_enemy() -> bool :
 
 func pass_turn() -> void :
 	self.emit_signal( "finished_turn" )
+
+func set_map_location( location_in_map : Vector2 ) -> void :
+	#Set my position based on the location passed.
+	positionInArray = location_in_map
+	position = MapHandler.tile_size * positionInArray
 
 func take_damage(damage : int):
 	if guarding:
