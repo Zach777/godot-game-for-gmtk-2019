@@ -1383,7 +1383,7 @@ extends Node
 \"\"\"
 
 #What all actions there are.
-var map : Array = [\"Confirm\", \"Cancel\", \"MoveUp\", \"MoveRight\", \"MoveDown\",\"MoveLeft\"]
+var map : Array = [\"Confirm\", \"Cancel\", \"MoveUp\", \"MoveRight\", \"MoveDown\",\"MoveLeft\", \"Pause\" ]
 
 const INVALID = -1 #Use this to prevent this control from being set.
 const JOYPAD_BUTTON = 0
@@ -1425,7 +1425,8 @@ func get_keyboard( use_control : int = 0) -> Array :
 		[KEYBOARD, 87], #W
 		[KEYBOARD, 68], #D
 		[KEYBOARD, 83], #S
-		[KEYBOARD, 65] #A
+		[KEYBOARD, 65], #A
+		[KEYBOARD, 16777217 ]
 		],
 		
 		[
@@ -1434,7 +1435,8 @@ func get_keyboard( use_control : int = 0) -> Array :
 		[KEYBOARD, 16777232 ], #UP
 		[KEYBOARD, 16777233 ], #RIGHT
 		[KEYBOARD, 16777234 ], #DOWN
-		[KEYBOARD, 16777231 ] #LEFT
+		[KEYBOARD, 16777231 ], #LEFT
+		[KEYBOARD, 16777225 ]
 		]
 	]
 	
@@ -1502,6 +1504,23 @@ func get_key_and_mouse(use_control : int = 0) -> Array :
 [node name="ControlHandler" type="Node"]
 pause_mode = 2
 script = SubResource( 1 )
+action_map = [ "Confirm", "Cancel", "MoveUp", "MoveRight", "MoveDown", "MoveLeft", "Pause" ]
+ui_actions = {
+"ui_accept": [ "Confirm" ],
+"ui_cancel": [ "Cancel" ],
+"ui_down": [ "MoveDown" ],
+"ui_end": [ "Pause" ],
+"ui_focus_next": [  ],
+"ui_focus_prev": [  ],
+"ui_home": [  ],
+"ui_left": [ "MoveLeft" ],
+"ui_page_down": [  ],
+"ui_page_up": [  ],
+"ui_right": [ "MoveRight" ],
+"ui_select": [  ],
+"ui_up": [ "MoveUp" ]
+}
+player_count = 1
 
 [node name="Defaults" type="Node" parent="."]
 script = SubResource( 2 )
