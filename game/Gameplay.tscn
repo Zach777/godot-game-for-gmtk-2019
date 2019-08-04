@@ -51,6 +51,12 @@ position = Vector2( 288, 352 )
 [node name="ItemMaker" parent="Maker" instance=ExtResource( 7 )]
 position = Vector2( 352, 128 )
 
+[node name="ItemMaker18" parent="Maker" instance=ExtResource( 7 )]
+position = Vector2( 288, 224 )
+
+[node name="ItemMaker19" parent="Maker" instance=ExtResource( 7 )]
+position = Vector2( 128, 96 )
+
 [node name="ItemMaker14" parent="Maker" instance=ExtResource( 7 )]
 position = Vector2( 192, 416 )
 
@@ -1005,6 +1011,7 @@ position = Vector2( 32, 672 )
 [node name="AntHill" parent="Hills" instance=ExtResource( 9 )]
 position = Vector2( 192, 192 )
 is_players = true
+place_ant = Vector2( 1, 0 )
 
 [node name="AntHill2" parent="Hills" instance=ExtResource( 9 )]
 position = Vector2( 992, 160 )
@@ -1013,7 +1020,7 @@ double_produce = true
 
 [node name="AntHill5" parent="Hills" instance=ExtResource( 9 )]
 position = Vector2( 192, 576 )
-place_ant = Vector2( 0, -1 )
+place_ant = Vector2( 1, 0 )
 
 [node name="AntHill4" parent="Hills" instance=ExtResource( 9 )]
 position = Vector2( 672, 480 )

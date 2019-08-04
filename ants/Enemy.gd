@@ -28,7 +28,6 @@ func _ready():
 	MapHandler.set_tile( positionInArray, MapHandler.ENEMY )
 	TurnTaker.add_enemy_unit( self )
 	
-	MapHandler.set_tile( positionInArray, MapHandler.ENEMY )
 	position = positionInArray * MapHandler.tile_size
 	
 	TurnTaker.connect( "enemy_begin_turn", self, "turn" )

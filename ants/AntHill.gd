@@ -115,7 +115,7 @@ func enemy_produce(place) -> void :
 	get_tree().get_nodes_in_group( "enemies" )[0].add_child( new_enemy )
 
 
-func produce() -> void :
+func produce( ) -> void :
 	#I have been told to produce an ant.
 	if can_produce == false :
 		return
@@ -124,13 +124,25 @@ func produce() -> void :
 	if( wait_to_produce == 0 &&
 			checker.get_overlapping_areas().size() <= 1) :
 		wait_to_produce = start_wait
-		var player = load( "res://ants/Player.tscn" ).instance()
-		player.set_map_location( positionInArray + place_ant )
-		get_tree().get_nodes_in_group( "players" )[0].add_child( player )
+		
+		produce_player( place_ant )
+		if double_produce :
+			produce_player( place_ant.rotated( deg2rad( 90 ) ) )
+		
 		item_stock = max( 0, item_stock - 1 )
 		if item_stock == 0 :
 			can_produce = false
 		label.text = str( item_stock )
+
+func produce_player( place ) -> void :
+	var scene = load( "res://ants/Player.tscn" )
+	var player = scene.instance()
+	player.set_map_location( positionInArray + place_ant )
+	get_tree().get_nodes_in_group( "players" )[0].add_child( player )
+	
+	var extra_p = scene.instance()
+	extra_p.set_map_location( positionInArray + place.rotated( deg2rad( 180 ) ) )
+	get_tree().get_nodes_in_group( "players" )[0].add_child( extra_p )
 
 
 func player_turn() -> void :
