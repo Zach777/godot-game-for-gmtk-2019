@@ -7,6 +7,7 @@ var carrier : Object = self
 var positionInArray : Vector2
 
 signal delivered
+signal grabbed
 
 
 func _ready():
@@ -34,6 +35,7 @@ func _process(delta) -> void :
 			carrier = overlap[0]
 			carrier.emit_signal( "grabbed_item" )
 			being_carried = true
+			self.emit_signal( "grabbed" )
 			carrier.connect( "health_changed", self, "carrier_health" )
 
 
