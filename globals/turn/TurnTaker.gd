@@ -70,11 +70,13 @@ func player_unit_finished() -> void :
 
 
 func remove_enemy_unit( unit : Object ) -> void :
+	unit.disconnect( "finished_turn", self, "enemy_unit_finished" )
 	enemy_units.remove( enemy_units.find( unit ) )
 	emit_signal( "enemy_count_changed", enemy_units.size() )
 
 
 func remove_player_unit( unit : Object ) -> void :
+	unit.disconnect( "finished_turn", self, "player_unit_finished" )
 	player_units.remove( player_units.find( unit ) )
 	emit_signal( "players_count_changed", player_units.size() )
 

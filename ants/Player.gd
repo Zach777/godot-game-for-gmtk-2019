@@ -66,6 +66,9 @@ func take_damage(damage : int):
 		health -= damage - 1
 	else:
 		health -= damage
+		self.emit_signal( "health_changed", health )
 	if health <= 0:
+		MapHandler.set_tile( positionInArray, MapHandler.GROUND )
 		TurnTaker.remove_player_unit(self)
+		self.emit_signal( "health_changed", health )
 		self.queue_free()

@@ -9,6 +9,7 @@ var hills_infected : int = 0
 #How many hills there are total.
 var hills_total : int = 0
 
+#You can only win when the game is actually being played.
 var can_win : bool = false
 
 func _ready():
@@ -26,7 +27,7 @@ func hill_cured() -> void :
 func hill_infected() -> void :
 	hills_infected += 1
 	
-	if can_win :
+	if can_win && hills_infected == hills_total:
 		TurnTaker.clear()
 		MapHandler.clear_map()
 		get_tree().change_scene( "res://menus/main_menu/MainMenu.tscn" )
