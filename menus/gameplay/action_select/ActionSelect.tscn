@@ -26,9 +26,9 @@ margin_right = 1483.0
 margin_bottom = 155.0
 
 [node name="Move" type="TextureButton" parent="z"]
-margin_left = -312.782
+margin_left = -258.12
 margin_top = -18.1766
-margin_right = -184.782
+margin_right = -130.12
 margin_bottom = 45.8234
 rect_scale = Vector2( 2, 2 )
 texture_normal = ExtResource( 2 )
@@ -51,9 +51,9 @@ text = "Move"
 
 [node name="MoveMenu" type="Popup" parent="z/Move/C"]
 visible = true
-margin_left = -111.676
+margin_left = -57.014
 margin_top = 0.0667114
-margin_right = -71.6755
+margin_right = -17.014
 margin_bottom = 40.0667
 
 [node name="Down" type="TextureButton" parent="z/Move/C/MoveMenu"]
@@ -149,9 +149,9 @@ text = "Up"
 align = 1
 
 [node name="Attack" type="TextureButton" parent="z"]
-margin_left = -36.782
+margin_left = 17.8795
 margin_top = -18.177
-margin_right = 91.218
+margin_right = 145.88
 margin_bottom = 45.823
 rect_scale = Vector2( 2, 2 )
 texture_normal = ExtResource( 2 )
@@ -173,9 +173,9 @@ align = 1
 valign = 1
 
 [node name="Produce" type="TextureButton" parent="z"]
-margin_left = 239.218
+margin_left = 293.88
 margin_top = -18.177
-margin_right = 367.218
+margin_right = 421.88
 margin_bottom = 45.823
 rect_scale = Vector2( 2, 2 )
 texture_normal = ExtResource( 2 )
@@ -197,9 +197,9 @@ align = 1
 valign = 1
 
 [node name="Guard" type="TextureButton" parent="z"]
-margin_left = 515.218
+margin_left = 569.88
 margin_top = -18.1766
-margin_right = 643.218
+margin_right = 697.88
 margin_bottom = 45.8234
 rect_scale = Vector2( 2, 2 )
 texture_normal = ExtResource( 2 )
@@ -221,9 +221,9 @@ align = 1
 valign = 1
 
 [node name="UnitCount" type="Label" parent="z"]
-margin_left = 807.123
+margin_left = 861.785
 margin_top = -5.81628
-margin_right = 1295.12
+margin_right = 1349.78
 margin_bottom = 115.184
 custom_fonts/font = SubResource( 1 )
 text = "10 ants left"
