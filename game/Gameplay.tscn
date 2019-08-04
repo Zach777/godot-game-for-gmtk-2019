@@ -1,14 +1,15 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://game/Manager.gd" type="Script" id=1]
 [ext_resource path="res://game/HillsInfected.tscn" type="PackedScene" id=2]
 [ext_resource path="res://menus/gameplay/action_select/ActionSelect.tscn" type="PackedScene" id=3]
 [ext_resource path="res://menus/gameplay/pause/Pause.tscn" type="PackedScene" id=4]
-[ext_resource path="res://ants/AntHill.tscn" type="PackedScene" id=5]
-[ext_resource path="res://ants/Enemy.tscn" type="PackedScene" id=6]
-[ext_resource path="res://ants/Player.tscn" type="PackedScene" id=7]
-[ext_resource path="res://game/Rock.tscn" type="PackedScene" id=8]
-[ext_resource path="res://game/Item.tscn" type="PackedScene" id=9]
+[ext_resource path="res://foliage/Mushroom.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ants/AntHill.tscn" type="PackedScene" id=6]
+[ext_resource path="res://ants/Enemy.tscn" type="PackedScene" id=7]
+[ext_resource path="res://ants/Player.tscn" type="PackedScene" id=8]
+[ext_resource path="res://game/Rock.tscn" type="PackedScene" id=9]
+[ext_resource path="res://game/Item.tscn" type="PackedScene" id=10]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Label
@@ -36,25 +37,39 @@ margin_top = 149.957
 margin_right = 417.164
 margin_bottom = 189.957
 
+[node name="Foliage" type="Node" parent="."]
+
+[node name="Mushroom1" parent="Foliage" instance=ExtResource( 5 )]
+position = Vector2( 125.862, 178.789 )
+
+[node name="Mushroom2" parent="Foliage" instance=ExtResource( 5 )]
+position = Vector2( 47.0729, 190.217 )
+
+[node name="Mushroom3" parent="Foliage" instance=ExtResource( 5 )]
+position = Vector2( 81.7538, 112.029 )
+
 [node name="Players" type="Node2D" parent="." groups=[
 "players",
 ]]
 
-[node name="AntHill" parent="Players" instance=ExtResource( 5 )]
+[node name="AntHill" parent="Players" instance=ExtResource( 6 )]
 position = Vector2( 224, 352 )
 is_players = true
 
 [node name="Enemies" type="Node2D" parent="." groups=[
 "enemies",
 ]]
+__meta__ = {
+"_edit_group_": true
+}
 
-[node name="AntHill" parent="Enemies" instance=ExtResource( 5 )]
+[node name="AntHill" parent="Enemies" instance=ExtResource( 6 )]
 position = Vector2( 352, 160 )
 
-[node name="Enemy" parent="Enemies" instance=ExtResource( 6 )]
+[node name="Enemy" parent="Enemies" instance=ExtResource( 7 )]
 position = Vector2( 224, 96 )
 
-[node name="Area2D" parent="." instance=ExtResource( 7 )]
+[node name="Area2D" parent="." instance=ExtResource( 8 )]
 position = Vector2( 224, 224 )
 
 [node name="Label" type="Label" parent="."]
@@ -65,14 +80,14 @@ margin_bottom = 782.0
 rect_scale = Vector2( 6, 6 )
 script = SubResource( 1 )
 
-[node name="Rock" parent="." instance=ExtResource( 8 )]
+[node name="Rock" parent="." instance=ExtResource( 9 )]
 position = Vector2( 224, 160 )
 
-[node name="Rock2" parent="." instance=ExtResource( 8 )]
+[node name="Rock2" parent="." instance=ExtResource( 9 )]
 position = Vector2( 256, 160 )
 
-[node name="Rock3" parent="." instance=ExtResource( 8 )]
+[node name="Rock3" parent="." instance=ExtResource( 9 )]
 position = Vector2( 192, 160 )
 
-[node name="Item" parent="." instance=ExtResource( 9 )]
+[node name="Item" parent="." instance=ExtResource( 10 )]
 position = Vector2( 276, 224 )
