@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://game/Manager.gd" type="Script" id=1]
 [ext_resource path="res://menus/gameplay/action_select/ActionSelect.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://game/Rock.tscn" type="PackedScene" id=8]
 [ext_resource path="res://ants/AntHill.tscn" type="PackedScene" id=9]
 [ext_resource path="res://game/HillsInfected.tscn" type="PackedScene" id=10]
+[ext_resource path="res://menus/gameplay/victory/Victory.tscn" type="PackedScene" id=11]
 
 [node name="Gameplay" type="Node2D"]
 script = ExtResource( 1 )
@@ -27,10 +28,10 @@ tile_data = PoolIntArray( -65525, 2, 0, -65524, 2, 0, -65523, 2, 0, -65522, 2, 0
 
 [node name="Pause" parent="." instance=ExtResource( 4 )]
 visible = false
-margin_left = 377.164
-margin_top = 149.957
-margin_right = 417.164
-margin_bottom = 189.957
+margin_left = 736.0
+margin_top = 160.0
+margin_right = 776.0
+margin_bottom = 200.0
 
 [node name="Players" type="Node2D" parent="." groups=[
 "players",
@@ -1030,3 +1031,9 @@ position = Vector2( 1408, 480 )
 double_produce = true
 
 [node name="HillsInfected" parent="." instance=ExtResource( 10 )]
+
+[node name="Victory" parent="." instance=ExtResource( 11 )]
+margin_left = 736.0
+margin_top = 128.0
+margin_right = 776.0
+margin_bottom = 168.0

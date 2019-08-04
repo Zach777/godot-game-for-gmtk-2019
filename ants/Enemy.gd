@@ -1,7 +1,7 @@
 extends Area2D
 
 export (int) var health = 2
-export (int) var damage = 2
+export (int) var damage = 1
 
 signal finished_turn
 signal health_changed

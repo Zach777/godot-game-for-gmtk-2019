@@ -64,6 +64,7 @@ func set_map_location( location_in_map : Vector2 ) -> void :
 func take_damage(damage : int):
 	if guarding:
 		health -= damage - 1
+		self.emit_signal( "health_changed", health )
 	else:
 		health -= damage
 		self.emit_signal( "health_changed", health )

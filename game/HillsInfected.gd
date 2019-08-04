@@ -30,5 +30,6 @@ func hill_infected() -> void :
 	if can_win && hills_infected == hills_total:
 		TurnTaker.clear()
 		MapHandler.clear_map()
-		get_tree().change_scene( "res://menus/main_menu/MainMenu.tscn" )
+		get_tree().call_group( "Victory", "start" )
+		
 
