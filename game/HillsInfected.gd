@@ -28,8 +28,6 @@ func hill_infected() -> void :
 	hills_infected += 1
 	
 	if can_win && hills_infected == hills_total:
-		TurnTaker.clear()
-		MapHandler.clear_map()
 		get_tree().call_group( "Victory", "start" )
 		
 

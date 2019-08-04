@@ -41,6 +41,10 @@ func add_enemy_unit( unit : Object ) -> void :
 func clear() -> void :
 	#Remove all active units.
 	#Do this when you are moving to a new scene.
+	for unit in player_units :
+		unit.disconnect( "finished_turn", self, "player_unit_finished" )
+	for unit in enemy_units :
+		unit.disconnect( "finished_turn", self, "enemy_unit_finished" )
 	player_units.clear()
 	enemy_units.clear()
 	enemies_finished = 0
