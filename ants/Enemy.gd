@@ -92,6 +92,6 @@ func die():
 	var newPlayerUnit = Player.instance()
 	newPlayerUnit.positionInArray = positionInArray
 	TurnTaker.remove_enemy_unit(self)
-	newPlayerUnit.position = positionInArray * MapHandler.tile_size+Vector2(MapHandler.tile_size/2, MapHandler.tile_size/2)
+	newPlayerUnit.set_map_location( positionInArray )
 	TurnTaker.add_player_unit(newPlayerUnit)
 	self.queue_free()

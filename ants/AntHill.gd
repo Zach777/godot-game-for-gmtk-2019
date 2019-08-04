@@ -23,7 +23,7 @@ onready var checker : Area2D = get_node( "Checker" )
 There is a bug present unfortunately.
 Enemy calls turn multiple times in a turn.
 """
-var wait_to_produce : int = 10
+var wait_to_produce : int = 2
 var start_wait : int = wait_to_produce
 var can_produce : bool = true
 
@@ -55,13 +55,13 @@ func enemy_turn() -> void :
 		emit_signal("finished_turn")
 		return
 	
-	wait_to_produce = max( 0, wait_to_produce - 1 )
 	if ( wait_to_produce == 0 &&
 			checker.get_overlapping_areas().size() <= 1 ) :
 		wait_to_produce = start_wait
 		var enemy = load( "res://ants/Enemy.tscn" ).instance()
 		enemy.set_map_location( positionInArray + place_ant )
 		get_tree().get_nodes_in_group( "enemies" )[0].add_child( enemy )
+	wait_to_produce = max( 0, wait_to_produce - 1 )
 	
 	emit_signal("finished_turn")
 
