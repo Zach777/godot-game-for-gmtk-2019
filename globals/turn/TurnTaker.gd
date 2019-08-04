@@ -61,7 +61,7 @@ func enemy_unit_finished() -> void :
 
 func player_unit_finished() -> void :
 	players_finished += 1
-	if players_finished == player_units.size() :
+	if players_finished >= player_units.size() :
 		players_finished = 0
 		emit_signal( "enemy_begin_turn" )
 
