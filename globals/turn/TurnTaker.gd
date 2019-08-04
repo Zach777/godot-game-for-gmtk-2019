@@ -63,10 +63,7 @@ func player_unit_finished() -> void :
 	players_finished += 1
 	if players_finished == player_units.size() :
 		players_finished = 0
-		if enemy_units.size() > 0 :
-			emit_signal( "enemy_begin_turn" )
-		else :
-			emit_signal( "player_begin_turn" )
+		emit_signal( "enemy_begin_turn" )
 
 
 func remove_enemy_unit( unit : Object ) -> void :

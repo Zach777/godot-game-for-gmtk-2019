@@ -9,6 +9,7 @@ const START_HEALTH = 3
 
 export var is_players : bool = false
 export var place_ant : Vector2 = Vector2( 0,1 )
+export var double_produce : bool = false
 
 var health = 3
 
@@ -61,7 +62,6 @@ func _ready():
 	
 	#Listen for the correct signal.
 	if is_players :
-		can_produce = false
 		label.show()
 		label.text = str( item_stock )
 		TurnTaker.add_player_unit( self )
@@ -74,12 +74,15 @@ func _ready():
 		#Make sure others know what side I am on.
 		self.set_collision_layer_bit( 0, true )
 		
+		call_deferred( "produce" )
+		
 	else :
 		label.hide()
 		TurnTaker.add_enemy_unit( self )
 		TurnTaker.connect( "enemy_begin_turn", self, "enemy_turn" )
 		MapHandler.set_tile( positionInArray, MapHandler.ENEMY )
 		self.set_collision_layer_bit( 2, true )
+		self.call_deferred( "enemy_produce" )
 
 
 func enemy_turn() -> void :
@@ -90,14 +93,26 @@ func enemy_turn() -> void :
 	if ( wait_to_produce == 0 &&
 			checker.get_overlapping_areas().size() <= 1 ) :
 		wait_to_produce = start_wait
-		var enemy = load( "res://ants/Enemy.tscn" ).instance()
-		enemy.set_map_location( positionInArray + place_ant )
-		enemy.home_ant_hill( self )
-		get_tree().get_nodes_in_group( "enemies" )[0].add_child( enemy )
+		enemy_produce(place_ant)
+		if double_produce :
+			enemy_produce( place_ant.rotated( deg2rad(90) ) )
 		can_produce = false
 	wait_to_produce = max( 0, wait_to_produce - 1 )
 	
 	emit_signal("finished_turn")
+
+
+func enemy_produce(place) -> void :
+	var scene = load( "res://ants/Enemy.tscn" )
+	var enemy = scene.instance()
+	enemy.set_map_location( positionInArray + place )
+	enemy.home_ant_hill( self )
+	get_tree().get_nodes_in_group( "enemies" )[0].add_child( enemy )
+	
+	var new_enemy = scene.instance()
+	new_enemy.set_map_location( positionInArray + place.rotated( deg2rad(180) ) )
+	new_enemy.home_ant_hill( self )
+	get_tree().get_nodes_in_group( "enemies" )[0].add_child( new_enemy )
 
 
 func produce() -> void :
@@ -129,7 +144,6 @@ func take_damage( amount : int ) -> void :
 		health = START_HEALTH
 		wait_to_produce = start_wait
 		if is_players :
-			get_tree().call_group( "HillCount", "hill_cured" )
 			label.hide()
 			can_produce = true
 			TurnTaker.remove_player_unit( self )
@@ -139,6 +153,7 @@ func take_damage( amount : int ) -> void :
 			hill_count.hill_cured()
 			self.set_collision_layer_bit( 0, false )
 			self.set_collision_layer_bit( 2, true )
+			TurnTaker.disconnect( "player_begin_turn", self, "player_turn" )
 			get_tree().get_nodes_in_group( "ActionSelect" )[0].disconnect( "produce_pressed", self, "produce" )
 		else:
 			label.show()
@@ -150,4 +165,5 @@ func take_damage( amount : int ) -> void :
 			hill_count.hill_infected()
 			self.set_collision_layer_bit( 0, true )
 			self.set_collision_layer_bit( 2, false)
+			TurnTaker.disconnect( "enemy_begin_turn", self, "enemy_turn" )
 			get_tree().get_nodes_in_group( "ActionSelect" )[0].connect( "produce_pressed", self, "produce" )

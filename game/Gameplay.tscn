@@ -37,22 +37,69 @@ margin_bottom = 189.957
 ]]
 
 [node name="Area2D" parent="Players" instance=ExtResource( 5 )]
-position = Vector2( 192, 320 )
+position = Vector2( 192, 352 )
 
 [node name="Enemies" type="Node2D" parent="." groups=[
 "enemies",
 ]]
 
 [node name="Enemy2" parent="Enemies" instance=ExtResource( 6 )]
-position = Vector2( 288, 320 )
-
-[node name="Inner" type="Node" parent="."]
+position = Vector2( 288, 352 )
 
 [node name="Maker" type="Node" parent="."]
-editor/display_folded = true
 
 [node name="ItemMaker" parent="Maker" instance=ExtResource( 7 )]
-position = Vector2( 320, 160 )
+position = Vector2( 352, 128 )
+
+[node name="ItemMaker14" parent="Maker" instance=ExtResource( 7 )]
+position = Vector2( 192, 416 )
+
+[node name="ItemMaker13" parent="Maker" instance=ExtResource( 7 )]
+position = Vector2( 640, 160 )
+
+[node name="ItemMaker2" parent="Maker" instance=ExtResource( 7 )]
+position = Vector2( 1216, 352 )
+
+[node name="ItemMaker16" parent="Maker" instance=ExtResource( 7 )]
+position = Vector2( 1120, 512 )
+
+[node name="ItemMaker3" parent="Maker" instance=ExtResource( 7 )]
+position = Vector2( 1568, 416 )
+
+[node name="ItemMaker4" parent="Maker" instance=ExtResource( 7 )]
+position = Vector2( 1408, 256 )
+
+[node name="ItemMaker15" parent="Maker" instance=ExtResource( 7 )]
+position = Vector2( 1568, 256 )
+
+[node name="ItemMaker5" parent="Maker" instance=ExtResource( 7 )]
+position = Vector2( 1280, 608 )
+
+[node name="ItemMaker6" parent="Maker" instance=ExtResource( 7 )]
+position = Vector2( 1472, 608 )
+
+[node name="ItemMaker7" parent="Maker" instance=ExtResource( 7 )]
+position = Vector2( 1088, 96 )
+
+[node name="ItemMaker8" parent="Maker" instance=ExtResource( 7 )]
+position = Vector2( 1152, 192 )
+
+[node name="ItemMaker9" parent="Maker" instance=ExtResource( 7 )]
+position = Vector2( 608, 576 )
+
+[node name="ItemMaker10" parent="Maker" instance=ExtResource( 7 )]
+position = Vector2( 672, 576 )
+
+[node name="ItemMaker17" parent="Maker" instance=ExtResource( 7 )]
+position = Vector2( 640, 320 )
+
+[node name="ItemMaker11" parent="Maker" instance=ExtResource( 7 )]
+position = Vector2( 736, 576 )
+
+[node name="ItemMaker12" parent="Maker" instance=ExtResource( 7 )]
+position = Vector2( 768, 480 )
+
+[node name="Inner" type="Node" parent="."]
 
 [node name="OuterRocks" type="Node" parent="."]
 editor/display_folded = true
@@ -961,11 +1008,18 @@ is_players = true
 
 [node name="AntHill2" parent="Hills" instance=ExtResource( 9 )]
 position = Vector2( 992, 160 )
+place_ant = Vector2( 1, 0 )
+double_produce = true
+
+[node name="AntHill5" parent="Hills" instance=ExtResource( 9 )]
+position = Vector2( 192, 576 )
+place_ant = Vector2( 0, -1 )
 
 [node name="AntHill4" parent="Hills" instance=ExtResource( 9 )]
 position = Vector2( 672, 480 )
 
 [node name="AntHill3" parent="Hills" instance=ExtResource( 9 )]
 position = Vector2( 1408, 480 )
+double_produce = true
 
 [node name="HillsInfected" parent="." instance=ExtResource( 10 )]

@@ -11,8 +11,8 @@ size = 98
 font_data = ExtResource( 5 )
 
 [node name="ActionSelect" type="CanvasLayer" groups=[
-"ActionSelect",
 "Menu",
+"ActionSelect",
 ]]
 script = ExtResource( 1 )
 
@@ -21,7 +21,7 @@ position = Vector2( 440.782, 927.005 )
 
 [node name="Panel" type="Panel" parent="z"]
 margin_left = -441.0
-margin_top = -45.0
+margin_top = -128.0
 margin_right = 1483.0
 margin_bottom = 155.0
 

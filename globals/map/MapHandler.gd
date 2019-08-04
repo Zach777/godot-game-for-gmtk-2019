@@ -13,7 +13,7 @@ const EMPTY = -1
 
 var tiles : Array = []
 
-var array_size = Vector2(20,20)
+var array_size = Vector2(60,22)
 
 var tile_size : float = 32
 

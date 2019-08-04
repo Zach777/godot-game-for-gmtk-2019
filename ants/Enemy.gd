@@ -1,6 +1,7 @@
 extends Area2D
 
-export (int) var health = 1
+export (int) var health = 2
+export (int) var damage = 2
 
 signal finished_turn
 signal health_changed
@@ -67,47 +68,46 @@ func set_map_location( location_in_map : Vector2 ) -> void :
 	position = positionInArray * MapHandler.tile_size
 
 func turn():
-	#Attack the player if player is close.
-	if player_near() != Vector2( -1,-1 ):
-		for player in checker.get_overlapping_areas():
-			if player.has_method("take_damage"): player.take_damage(1)
-	
-	else:
-		var nearest_player : Area2D
-		if home_ant_hill != self :
-			if home_ant_hill.is_players :
-				nearest_player = home_ant_hill
-			elif has_item :
-				nearest_player = home_ant_hill
-			else :
-				nearest_player = nearest_player()
+	var nearest_player : Area2D
+	if home_ant_hill != self :
+		if home_ant_hill.is_players :
+			nearest_player = home_ant_hill
+		elif has_item :
+			nearest_player = home_ant_hill
 		else :
 			nearest_player = nearest_player()
-			
-		if nearest_player.position.x == position.x: #same x, move y
+	else :
+		nearest_player = nearest_player()
+		
+	if nearest_player.position.x == position.x: #same x, move y
+		if nearest_player.position.y > position.y:
+			positionInArray = MapHandler.move_unit(positionInArray, positionInArray + Vector2.DOWN)
+		else:
+			positionInArray = MapHandler.move_unit(positionInArray, positionInArray + Vector2.UP)
+	elif nearest_player.position.y == position.y: #same y, move x
+		if nearest_player.position.x > position.x:
+			positionInArray = MapHandler.move_unit(positionInArray, positionInArray + Vector2.RIGHT)
+		else:
+			positionInArray = MapHandler.move_unit(positionInArray, positionInArray + Vector2.LEFT)
+	else: #move either way
+		if round(rand_range(0,1)) == 0:
 			if nearest_player.position.y > position.y:
 				positionInArray = MapHandler.move_unit(positionInArray, positionInArray + Vector2.DOWN)
 			else:
 				positionInArray = MapHandler.move_unit(positionInArray, positionInArray + Vector2.UP)
-		elif nearest_player.position.y == position.y: #same y, move x
+		else:
 			if nearest_player.position.x > position.x:
 				positionInArray = MapHandler.move_unit(positionInArray, positionInArray + Vector2.RIGHT)
 			else:
 				positionInArray = MapHandler.move_unit(positionInArray, positionInArray + Vector2.LEFT)
-		else: #move either way
-			if round(rand_range(0,1)) == 0:
-				if nearest_player.position.y > position.y:
-					positionInArray = MapHandler.move_unit(positionInArray, positionInArray + Vector2.DOWN)
-				else:
-					positionInArray = MapHandler.move_unit(positionInArray, positionInArray + Vector2.UP)
-			else:
-				if nearest_player.position.x > position.x:
-					positionInArray = MapHandler.move_unit(positionInArray, positionInArray + Vector2.RIGHT)
-				else:
-					positionInArray = MapHandler.move_unit(positionInArray, positionInArray + Vector2.LEFT)
-		
-		#Move the enemy unit.
-		position = positionInArray * MapHandler.tile_size
+	
+	#Move the enemy unit.
+	position = positionInArray * MapHandler.tile_size
+	
+	#Attack the player if player is close.
+	if player_near() != Vector2( -1,-1 ):
+		for player in checker.get_overlapping_areas():
+			if player.has_method("take_damage"): player.take_damage(damage)
 	
 	#Finish the turn gracefully.
 	emit_signal("finished_turn")
@@ -144,7 +144,7 @@ func take_damage(var dmg : int):
 
 func die():
 	is_dead = true
-	MapHandler.set_tile(positionInArray, 1)
+	MapHandler.set_tile(positionInArray, MapHandler.PLAYER)
 	var newPlayerUnit = Player.instance()
 	newPlayerUnit.positionInArray = positionInArray
 	TurnTaker.remove_enemy_unit(self)
