@@ -15,7 +15,7 @@ var health = 3
 var positionInArray : Vector2
 
 onready var checker : Area2D = get_node( "Checker" )
-onready var hill_count : Node = get_tree().get_nodes_in_group( "HillCount" )[0]
+onready var hill_count : Node
 onready var label : Label = get_node( "Label" )
 
 #Each time I am told to produce, 
@@ -54,6 +54,8 @@ func _process(delta):
 
 
 func _ready():
+	hill_count = get_tree().get_nodes_in_group( "HillCount" )[0]
+	
 	positionInArray = position / MapHandler.tile_size
 	hill_count.add_hill()
 	
@@ -139,7 +141,6 @@ func take_damage( amount : int ) -> void :
 			self.set_collision_layer_bit( 2, true )
 			get_tree().get_nodes_in_group( "ActionSelect" )[0].disconnect( "produce_pressed", self, "produce" )
 		else:
-			get_tree().call_group( "HillCount", "hill_infected" )
 			label.show()
 			label.text = str( item_stock )
 			TurnTaker.remove_enemy_unit( self )
