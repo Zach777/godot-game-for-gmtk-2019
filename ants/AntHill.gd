@@ -15,14 +15,11 @@ var health = 3
 var positionInArray : Vector2
 
 onready var checker : Area2D = get_node( "Checker" )
+onready var hill_count : Node = get_tree().get_nodes_in_group( "HillCount" )[0]
 
 #Each time I am told to produce, 
 #I decrement wait_to_produce. When wait_to_produce is done,
 #I make a new ant based on my faction.
-"""
-There is a bug present unfortunately.
-Enemy calls turn multiple times in a turn.
-"""
 var wait_to_produce : int = 2
 var start_wait : int = wait_to_produce
 var can_produce : bool = true
@@ -32,6 +29,7 @@ signal finished_turn
 
 func _ready():
 	positionInArray = position / MapHandler.tile_size
+	hill_count.add_hill()
 	
 	#Listen for the correct signal.
 	if is_players :
@@ -40,9 +38,11 @@ func _ready():
 		MapHandler.set_tile( positionInArray, MapHandler.PLAYER )
 		
 		get_tree().get_nodes_in_group( "ActionSelect" )[0].connect( "produce_pressed", self, "produce" )
+		hill_count.hill_infected()
 		
 		#Make sure others know what side I am on.
 		self.set_collision_layer_bit( 0, true )
+		
 	else :
 		TurnTaker.add_enemy_unit( self )
 		TurnTaker.connect( "enemy_begin_turn", self, "enemy_turn" )
@@ -94,6 +94,7 @@ func take_damage( amount : int ) -> void :
 			is_players = false
 			TurnTaker.add_enemy_unit( self )
 			MapHandler.set_tile( positionInArray, MapHandler.PLAYER )
+			hill_count.hill_cured()
 			self.set_collision_layer_bit( 0, false )
 			self.set_collision_layer_bit( 2, true )
 			get_tree().get_nodes_in_group( "ActionSelect" )[0].disconnect( "produce_pressed", self, "produce" )
@@ -102,6 +103,7 @@ func take_damage( amount : int ) -> void :
 			is_players = true
 			TurnTaker.add_player_unit( self )
 			MapHandler.set_tile( positionInArray, MapHandler.ENEMY )
+			hill_count.hill_infected()
 			self.set_collision_layer_bit( 0, true )
 			self.set_collision_layer_bit( 2, false)
 			get_tree().get_nodes_in_group( "ActionSelect" )[0].connect( "produce_pressed", self, "produce" )
