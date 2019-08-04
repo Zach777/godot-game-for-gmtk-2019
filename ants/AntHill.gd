@@ -16,6 +16,7 @@ var positionInArray : Vector2
 
 onready var checker : Area2D = get_node( "Checker" )
 onready var hill_count : Node = get_tree().get_nodes_in_group( "HillCount" )[0]
+onready var label : Label = get_node( "Label" )
 
 #Each time I am told to produce, 
 #I decrement wait_to_produce. When wait_to_produce is done,
@@ -39,6 +40,7 @@ func _process(delta):
 				if carrier.has_method( "is_enemy" ) :
 					can_produce = true
 					area.queue_free()
+					can_produce = false
 	
 	else :
 		for area in checker.get_overlapping_areas() :
@@ -47,6 +49,7 @@ func _process(delta):
 				if carrier.has_method( "is_player" ) :
 					can_produce = true
 					item_stock += 1
+					label.text = str( item_stock )
 					area.queue_free()
 
 
@@ -56,6 +59,8 @@ func _ready():
 	
 	#Listen for the correct signal.
 	if is_players :
+		label.show()
+		label.text = str( item_stock )
 		TurnTaker.add_player_unit( self )
 		TurnTaker.connect( "player_begin_turn", self, "player_turn" )
 		MapHandler.set_tile( positionInArray, MapHandler.PLAYER )
@@ -67,6 +72,7 @@ func _ready():
 		self.set_collision_layer_bit( 0, true )
 		
 	else :
+		label.hide()
 		TurnTaker.add_enemy_unit( self )
 		TurnTaker.connect( "enemy_begin_turn", self, "enemy_turn" )
 		MapHandler.set_tile( positionInArray, MapHandler.ENEMY )
@@ -105,6 +111,7 @@ func produce() -> void :
 		item_stock = max( 0, item_stock - 1 )
 		if item_stock == 0 :
 			can_produce = false
+		label.text = str( item_stock )
 
 
 func player_turn() -> void :
@@ -118,6 +125,7 @@ func take_damage( amount : int ) -> void :
 		health = START_HEALTH
 		wait_to_produce = start_wait
 		if is_players :
+			label.hide()
 			can_produce = true
 			TurnTaker.remove_player_unit( self )
 			is_players = false
@@ -128,6 +136,8 @@ func take_damage( amount : int ) -> void :
 			self.set_collision_layer_bit( 2, true )
 			get_tree().get_nodes_in_group( "ActionSelect" )[0].disconnect( "produce_pressed", self, "produce" )
 		else:
+			label.show()
+			label.text = str( item_stock )
 			TurnTaker.remove_enemy_unit( self )
 			is_players = true
 			TurnTaker.add_player_unit( self )
