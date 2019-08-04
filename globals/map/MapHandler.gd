@@ -21,17 +21,22 @@ var tile_size : float = 32
 
 func _ready():
 	#Initialize the tiles.
+	clear_map()
+
+
+func check_map( map : TileMap ) -> void :
+	#Make the tiles into whatever the map is.
+	pass
+
+
+func clear_map() -> void :
+	tiles.clear()
 	for i in range( 0,array_size.x ) :
 		var new_array : Array = []
 		tiles.append( new_array )
 		for y in range( 0, array_size.y ) :
 			var new_int : int = 0
 			new_array.append( new_int )
-
-
-func check_map( map : TileMap ) -> void :
-	#Make the tiles into whatever the map is.
-	pass
 
 
 func get_tile( tile : Vector2 ) -> int :

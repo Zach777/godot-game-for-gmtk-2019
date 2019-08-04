@@ -21,7 +21,6 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Con="*res://addons/godotput/GodotInputConfigHandler.tscn"
 MapHandler="*res://globals/map/MapHandler.gd"
 TurnTaker="*res://globals/turn/TurnTaker.gd"
 ScreenInit="*res://globals/init/ScreenInit.tscn"
@@ -37,6 +36,15 @@ window/stretch/aspect="keep"
 [editor_plugins]
 
 enabled=PoolStringArray( "gut" )
+
+[input]
+
+ui_end={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777230,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777217,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [layer_names]
 

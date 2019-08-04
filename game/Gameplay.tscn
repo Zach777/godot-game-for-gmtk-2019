@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://game/Manager.gd" type="Script" id=1]
 [ext_resource path="res://game/HillsInfected.tscn" type="PackedScene" id=2]
@@ -7,6 +7,18 @@
 [ext_resource path="res://ants/AntHill.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ants/Enemy.tscn" type="PackedScene" id=6]
 [ext_resource path="res://ants/Player.tscn" type="PackedScene" id=7]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Label
+
+
+func _ready():
+	TurnTaker.connect( \"enemy_count_changed\", self, \"count\" )
+	self.text = str( TurnTaker.enemy_units.size() )
+
+
+func count( count : int ) -> void :
+	self.text = str( count )"
 
 [node name="Gameplay" type="Node2D"]
 script = ExtResource( 1 )
@@ -38,3 +50,11 @@ position = Vector2( 224, 96 )
 
 [node name="Area2D" parent="." instance=ExtResource( 7 )]
 position = Vector2( 224, 224 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 320.0
+margin_top = 768.0
+margin_right = 360.0
+margin_bottom = 782.0
+rect_scale = Vector2( 6, 6 )
+script = SubResource( 1 )

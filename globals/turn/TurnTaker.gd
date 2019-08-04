@@ -29,15 +29,13 @@ func add_player_unit( unit : Object ) -> void :
 	player_units.append( unit )
 	unit.connect( "finished_turn", self, "player_unit_finished" )
 	emit_signal( "players_count_changed", player_units.size() )
-	get_tree().get_nodes_in_group("players")[0].add_child(unit)
 
 
 func add_enemy_unit( unit : Object ) -> void :
 	#Add the enemy unit to the taker.
 	enemy_units.append( unit )
 	unit.connect( "finished_turn", self, "enemy_unit_finished" )
-	emit_signal( "enemy_count_changed", enemy_units.size() )
-	get_tree().get_nodes_in_group("enemies")[0].add_child(unit)
+	emit_signal( "enemy_count_changed", enemy_units.size() - 1 )
 
 
 func clear() -> void :

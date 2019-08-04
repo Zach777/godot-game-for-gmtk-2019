@@ -12,6 +12,8 @@ onready var checker : Area2D = get_node( "Checker" )
 
 var positionInArray = Vector2()
 
+var is_dead : bool = false
+
 func _ready():
 	#Set my position in the array based on position.
 	positionInArray = position / MapHandler.tile_size
@@ -83,15 +85,19 @@ func nearest_player() -> Area2D:
 	return nearest_player
 
 func take_damage(var dmg : int):
+	if is_dead :
+		return 
 	health -= dmg
 	emit_signal("health_changed")
-	if health <= 0: die()
+	if health <= 0: 
+		die()
 
 func die():
+	is_dead = true
 	MapHandler.set_tile(positionInArray, 1)
 	var newPlayerUnit = Player.instance()
 	newPlayerUnit.positionInArray = positionInArray
 	TurnTaker.remove_enemy_unit(self)
 	newPlayerUnit.set_map_location( positionInArray )
-	TurnTaker.add_player_unit(newPlayerUnit)
+	get_tree().get_nodes_in_group( "players" )[0].add_child( newPlayerUnit )
 	self.queue_free()
