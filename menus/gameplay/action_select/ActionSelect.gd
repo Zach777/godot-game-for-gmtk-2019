@@ -15,7 +15,7 @@ signal attack_pressed
 signal guard_pressed
 
 onready var z : Node2D = get_node( "z" )
-onready var move : Popup = z.get_node( "Move/C/MoveMenu" )
+onready var move : Popup = z.get_node( "Move/C/z/MoveMenu" )
 onready var unit_count  : RichTextLabel = z.get_node( "UnitCount" )
 
 
