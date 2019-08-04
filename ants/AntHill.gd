@@ -24,7 +24,30 @@ var wait_to_produce : int = 2
 var start_wait : int = wait_to_produce
 var can_produce : bool = true
 
+#Each item brought by the player will fill this
+#up by one. Each ant creation uses one.
+var item_stock : int = 0
+
 signal finished_turn
+
+
+func _process(delta):
+	if is_players ==false :
+		for area in checker.get_overlapping_areas() :
+			if area.has_method( "get_carrier" ) :
+				var carrier : Object = area.get_carrier()
+				if carrier.has_method( "is_enemy" ) :
+					can_produce = true
+					area.queue_free()
+	
+	else :
+		for area in checker.get_overlapping_areas() :
+			if area.has_method( "get_carrier" ) :
+				var carrier : Object = area.get_carrier()
+				if carrier.has_method( "is_player" ) :
+					can_produce = true
+					item_stock += 1
+					area.queue_free()
 
 
 func _ready():
@@ -61,6 +84,7 @@ func enemy_turn() -> void :
 		var enemy = load( "res://ants/Enemy.tscn" ).instance()
 		enemy.set_map_location( positionInArray + place_ant )
 		get_tree().get_nodes_in_group( "enemies" )[0].add_child( enemy )
+		can_produce = false
 	wait_to_produce = max( 0, wait_to_produce - 1 )
 	
 	emit_signal("finished_turn")
@@ -78,9 +102,13 @@ func produce() -> void :
 		var player = load( "res://ants/Player.tscn" ).instance()
 		player.set_map_location( positionInArray + place_ant )
 		get_tree().get_nodes_in_group( "players" )[0].add_child( player )
+		item_stock = max( 0, item_stock - 1 )
+		if item_stock == 0 :
+			can_produce = false
 
 
 func player_turn() -> void :
+	#Check if the player has brought me an item.
 	emit_signal("finished_turn")
 
 
@@ -90,6 +118,7 @@ func take_damage( amount : int ) -> void :
 		health = START_HEALTH
 		wait_to_produce = start_wait
 		if is_players :
+			can_produce = true
 			TurnTaker.remove_player_unit( self )
 			is_players = false
 			TurnTaker.add_enemy_unit( self )

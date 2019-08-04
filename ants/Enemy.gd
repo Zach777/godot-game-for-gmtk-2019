@@ -28,6 +28,9 @@ func _ready():
 func tile() -> int:
 	return MapHandler.tiles[positionInArray.x][positionInArray.y]
 
+func is_enemy() -> bool :
+	return true
+
 func player_near() -> Vector2:
 	if MapHandler.get_tile(Vector2( positionInArray.x+1, positionInArray.y ) ) == 1:
 		return Vector2(positionInArray.x+1, positionInArray.y)

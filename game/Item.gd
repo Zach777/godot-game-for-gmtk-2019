@@ -30,3 +30,13 @@ func check() -> void :
 			carrier = overlap[0]
 			being_carried = true
 			carrier.connect( "health_changed", self, "carrier_health" )
+
+
+func get_carrier() -> Object :
+	return carrier
+
+
+
+
+
+

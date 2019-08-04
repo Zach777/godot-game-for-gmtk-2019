@@ -40,6 +40,10 @@ margin_bottom = 189.957
 "players",
 ]]
 
+[node name="AntHill" parent="Players" instance=ExtResource( 5 )]
+position = Vector2( 224, 352 )
+is_players = true
+
 [node name="Enemies" type="Node2D" parent="." groups=[
 "enemies",
 ]]

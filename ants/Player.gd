@@ -44,6 +44,9 @@ func guard():
 	guarding = true
 	emit_signal("finished_turn")
 
+func is_player() -> bool :
+	return true
+
 func move( move_by : Vector2 ):
 	positionInArray = MapHandler.move_unit(positionInArray, positionInArray+move_by)
 	position = positionInArray * MapHandler.tile_size
