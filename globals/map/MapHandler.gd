@@ -59,10 +59,15 @@ func move_unit( from_tiles : Vector2, to_tile : Vector2 ) -> Vector2 :
 
 
 func set_tile( tile : Vector2, value : int ) -> void :
-	if clamp(tile.x, 0, array_size.x-1) == tile.x and round(tile.x) == tile.x and clamp(tile.y, 0, array_size.y-1) == tile.y and round(tile.y) == tile.y:
+	# Nudge positions to match the grid
+	tile.x = round(tile.x)
+	tile.y = round(tile.y)
+
+	# Add tile position if tile is within the allowed bounds 	
+	if clamp(tile.x, 0, array_size.x-1) == tile.x and clamp(tile.y, 0, array_size.y-1) == tile.y:
 		tiles[ tile.x ][ tile.y ] = value
 	else:
-		assert true == false
+		print("Warning! Tile position i out of bounds", tile)
 
 func tile_in_map(tile : Vector2) -> bool:
 	if clamp(tile.x, 0, array_size.x-1) == tile.x and round(tile.x) == tile.x and clamp(tile.y, 0, array_size.y-1) == tile.y and round(tile.y) == tile.y:
