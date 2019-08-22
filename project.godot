@@ -24,6 +24,7 @@ config/icon="res://icon.png"
 MapHandler="*res://globals/map/MapHandler.gd"
 TurnTaker="*res://globals/turn/TurnTaker.gd"
 ScreenInit="*res://globals/init/ScreenInit.tscn"
+GameSettings="*res://globals/settings/GameSettings.tscn"
 
 [display]
 
